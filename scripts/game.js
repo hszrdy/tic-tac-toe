@@ -8,8 +8,8 @@ function Gameboard() {
 
     this.board = [
         [1, -1, -1],
-        [-1, 1, -1],
-        [1, 1, -1]
+        [-1, -1, 1],
+        [-1, 1, 1]
     ];
 }
 
@@ -56,8 +56,42 @@ function CheckBoardCondition(gameboard) {
         }
     }
 
-    //check diagonals
+    //check left root diagonals
+    let leftdiagsum = 0;
+    let rightdiagsum = 0;
+    for (let i = 0; i < gameboard.board.length; i++) {
+        if (gameboard.board[i][i] == 1) {
+            leftdiagsum++;
+        }
+        else if (gameboard.board[i][i] == -1) {
+            leftdiagsum--;
+        }
 
+        if (leftdiagsum == 3) {
+            return { xWins: true, yWins: false }
+        }
+        else if (leftdiagsum == -3) {
+            return { xWins: false, yWinds: true }
+        }
+    }
+
+    for (let i = 0; i < gameboard.board.length; i++) {
+        let n = gameboard.board[i].length
+        if (gameboard.board[i][n - 1 - i] == 1) {
+            rightdiagsum++;
+        }
+        else if (gameboard.board[i][n - 1 - i] == -1) {
+            rightdiagsum--;
+        }
+
+        console.log(rightdiagsum)
+        if (rightdiagsum == 3) {
+            return { xWins: true, yWins: false }
+        }
+        else if (rightdiagsum == -3) {
+            return { xWins: false, yWinds: true }
+        }
+    }
 
 
     return { xWins: false, yWins: false }
