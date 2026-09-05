@@ -6,13 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../scripts/game.js" defer></script>
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" href="../imgs/sora.jpg">
     <title>Tic Tac Toe Game</title>
 </head>
 
 <body>
     <div class="main-container">
-        <img id="sora-board" src="../imgs/sora.jpg" alt="Sora" class="sora-image">
-        <div class="grid-container"></div>
+        <div class="info-container">
+            <div class='header'>
+                <h1>Tic Tac Toe</h1>
+                <p>Player 1: X, Player 2: O</p>
+            </div>
+            <div class="info">
+                <table>
+                    <tr>
+                        <th>Player</th>
+                        <th>Name</th>
+                        <th>Wins</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td id="p1-name">Player 1</td>
+                        <td id="p1-wins">0</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td id="p2-name">Player 2</td>
+                        <td id="p2-wins">0</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="controls">
+                <label for="player1-name">Player 1 Name:</label>
+                <input type="text" id="player1-name-input" placeholder="Enter Player 1 Name">
+                <label for="player2-name">Player 2 Name:</label>
+                <input type="text" id="player2-name-input" placeholder="Enter Player 2 Name">
+                <button class="game-buttons"id="start-button">Start Game</button>
+                <button class="game-buttons" id="new-round-button">New Round</button>
+                <button class="game-buttons" id="reset-button">Reset Game</button>
+            </div>
+
+        </div>
+        <div class="game-container">
+            <img id="sora-board" src="../imgs/sora.jpg" alt="Sora" class="sora-image">
+            <div class="grid-container"></div>
+        </div>
     </div>
 </body>
 
