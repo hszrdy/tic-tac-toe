@@ -4,17 +4,6 @@
     let turn = 1; //1 for x, -1 for y
     let boardArray = new Array(9).fill(0);
 
-    function Gameboard() {
-        if (!new.target) {
-            return new Gameboard();
-        }
-
-        GenerateUIBoard(boardArray);
-        this.board = boardArray;
-        return this.board;
-    }
-
-
     function GenerateUIBoard(arrayObj) {
         const gridContainer = document.querySelector('.grid-container');
         let n = 1;
@@ -31,9 +20,10 @@
                         return;
                     }
                     cell.textContent = turn === 1 ? 'X' : 'O';
-                    turn *= -1;
                     arrayObj[cell.dataset.index - 1] = turn;
+                    turn *= -1;
                     cell.dataset.clicked = true;
+                    console.log(arrayObj);
                 });
                 
 
@@ -56,9 +46,9 @@
         */
 
         //check horizontals
-        let row1 = gameboard.board[0] + gameboard.board[1] + gameboard.board[2];
-        let row2 = gameboard.board[3] + gameboard.board[4] + gameboard.board[5];
-        let row3 = gameboard.board[6] + gameboard.board[7] + gameboard.board[8];
+        let row1 = gameboard[0] + gameboard[1] + gameboard[2];
+        let row2 = gameboard[3] + gameboard[4] + gameboard[5];
+        let row3 = gameboard[6] + gameboard[7] + gameboard[8];
 
         if (row1 === xPlayerWinCondition || row2 === xPlayerWinCondition || row3 === xPlayerWinCondition) {
             return 'X wins';
@@ -68,9 +58,9 @@
 
 
         //check verticals
-        let col1 = gameboard.board[0] + gameboard.board[3] + gameboard.board[6];
-        let col2 = gameboard.board[1] + gameboard.board[4] + gameboard.board[7];
-        let col3 = gameboard.board[2] + gameboard.board[5] + gameboard.board[8];
+        let col1 = gameboard[0] + gameboard[3] + gameboard[6];
+        let col2 = gameboard[1] + gameboard[4] + gameboard[7];
+        let col3 = gameboard[2] + gameboard[5] + gameboard[8];
 
         if (col1 === xPlayerWinCondition || col2 === xPlayerWinCondition || col3 === xPlayerWinCondition) {
             return 'X wins';
@@ -79,8 +69,8 @@
         }
 
         //check diagonals
-        let diag1 = gameboard.board[0] + gameboard.board[4] + gameboard.board[8];
-        let diag2 = gameboard.board[2] + gameboard.board[4] + gameboard.board[6];
+        let diag1 = gameboard[0] + gameboard[4] + gameboard[8];
+        let diag2 = gameboard[2] + gameboard[4] + gameboard[6];
 
         if (diag1 === xPlayerWinCondition || diag2 === xPlayerWinCondition) {
             return 'X wins';
@@ -106,7 +96,7 @@
     }
 
 
-    let gb = new Gameboard();
-    let state = CheckBoardCondition(gb);
+    let state = CheckBoardCondition(boardArray);
     console.log(state)
+    GenerateUIBoard(boardArray);
 } )();
