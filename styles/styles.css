@@ -1,7 +1,8 @@
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 200px);
-    grid-template-rows: repeat(3, 200px);
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    padding-right: 50px;
 }
 
 .grid-item {
@@ -11,4 +12,18 @@
     justify-content: center;
     font-size: 2rem;
     cursor: pointer;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#sora-board {
+    position: fixed;
+    z-index: -1;
+    width: 800px;
+    height: 800px;
 }
