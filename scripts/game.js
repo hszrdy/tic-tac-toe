@@ -2,36 +2,11 @@
     const xPlayerWinCondition = 3;
     const yPlayerWinCondition = -3;
     let turn = 1; //1 for x, -1 for y
+    let maxNumberOfTurns = 9;
+    let currentTurn = 1;
+    let isGameOver = false;
     let boardArray = new Array(9).fill(0);
 
-    function GenerateUIBoard(arrayObj) {
-        const gridContainer = document.querySelector('.grid-container');
-        let n = 1;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                const cell = document.createElement('div');
-
-                cell.classList.add('grid-item');
-                cell.dataset.index = n;
-                cell.dataset.clicked = false;
-
-                cell.addEventListener('click', (e) => {
-                    if(cell.dataset.clicked === 'true') {
-                        return;
-                    }
-                    cell.textContent = turn === 1 ? 'X' : 'O';
-                    arrayObj[cell.dataset.index - 1] = turn;
-                    turn *= -1;
-                    cell.dataset.clicked = true;
-                    console.log(arrayObj);
-                });
-                
-
-                gridContainer.appendChild(cell);
-                n++;
-            }
-        }
-    }
 
     function CheckBoardCondition(gameboard) {
 
@@ -51,8 +26,11 @@
         let row3 = gameboard[6] + gameboard[7] + gameboard[8];
 
         if (row1 === xPlayerWinCondition || row2 === xPlayerWinCondition || row3 === xPlayerWinCondition) {
+            isGameOver = true;
             return 'X wins';
-        } else if (row1 === yPlayerWinCondition || row2 === yPlayerWinCondition || row3 === yPlayerWinCondition) {
+        } 
+        else if (row1 === yPlayerWinCondition || row2 === yPlayerWinCondition || row3 === yPlayerWinCondition) {
+            isGameOver = true;
             return 'O wins';
         }
 
@@ -63,8 +41,11 @@
         let col3 = gameboard[2] + gameboard[5] + gameboard[8];
 
         if (col1 === xPlayerWinCondition || col2 === xPlayerWinCondition || col3 === xPlayerWinCondition) {
+            isGameOver = true;
             return 'X wins';
-        } else if (col1 === yPlayerWinCondition || col2 === yPlayerWinCondition || col3 === yPlayerWinCondition) {
+        } 
+        else if (col1 === yPlayerWinCondition || col2 === yPlayerWinCondition || col3 === yPlayerWinCondition) {
+            isGameOver = true;
             return 'O wins';
         }
 
@@ -73,16 +54,31 @@
         let diag2 = gameboard[2] + gameboard[4] + gameboard[6];
 
         if (diag1 === xPlayerWinCondition || diag2 === xPlayerWinCondition) {
+            isGameOver = true;
             return 'X wins';
-        } else if (diag1 === yPlayerWinCondition || diag2 === yPlayerWinCondition) {
+        } 
+        else if (diag1 === yPlayerWinCondition || diag2 === yPlayerWinCondition) {
+            isGameOver = true;
             return 'O wins';
         }
 
         return 'No winner yet';
-
     }
 
-    function CheckWinner(gameboard) {
+    function CheckWinner() {
+        if (currentTurn === maxNumberOfTurns) {
+            gameOver = true;
+            return alert('Game Over! The game is a draw!');
+        }
+
+
+        let state = CheckBoardCondition(boardArray);
+
+        if (state === 'X wins') {
+            return alert('Game Over! X wins!');
+        } else if (state === 'O wins') {
+            return alert('Game Over! O wins!');
+        }
         
     }
 
@@ -96,7 +92,39 @@
     }
 
 
-    let state = CheckBoardCondition(boardArray);
-    console.log(state)
+    function GenerateUIBoard(arrayObj) {
+        const gridContainer = document.querySelector('.grid-container');
+        let n = 1;
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                const cell = document.createElement('div');
+
+                cell.classList.add('grid-item');
+                cell.dataset.index = n;
+                cell.dataset.clicked = false;
+
+                cell.addEventListener('click', (e) => {
+                    if(cell.dataset.clicked === 'true') {
+                        return;
+                    }
+                    if(isGameOver) {
+                        return;
+                    }
+                    cell.textContent = turn === 1 ? 'X' : 'O';
+                    arrayObj[cell.dataset.index - 1] = turn;
+                    turn *= -1;
+                    currentTurn++;
+                    cell.dataset.clicked = true;
+                    CheckWinner();
+                    console.log(arrayObj);
+                });
+                
+
+                gridContainer.appendChild(cell);
+                n++;
+            }
+        }
+    }
+
     GenerateUIBoard(boardArray);
 } )();
